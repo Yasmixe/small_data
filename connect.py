@@ -4,28 +4,45 @@ from urllib.parse import urlparse, urljoin
 from flask import Flask, render_template, request, redirect
 from flaskext.mysql import MySQL
 
-h1_contents = []
+mysql = MySQL()
+app = Flask(__name__)
 
-import requests
-from bs4 import BeautifulSoup
+app.config["MYSQL_DATABASE_HOST"] = "localhost"
+app.config["MYSQL_DATABASE_PORT"] = 3306
+app.config["MYSQL_DATABASE_USER"] = "root"
+app.config["MYSQL_DATABASE_PASSWORD"] = "pass_root"
+app.config["MYSQL_DATABASE_DB"] = "small_data"
 
-url = "https://en.wikipedia.org/wiki/Astronomy"
+mysql.init_app(app)
 
-try:
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, "html.parser")
-        h1_tag = soup.find("h1")
-        if h1_tag:
-            h1_content = h1_tag.text.strip()
-            print("Contenu de la balise <h1>:", h1_content)
-        else:
-            print("La balise <h1> n'a pas été trouvée sur la page.")
-            h2_tag = soup.find("h2")
-            h2_content = h2_tag.text.strip()
-            print("Contenu de la balise <h2>:", h2_content)
+conn = mysql.connect()
+cursor = conn.cursor()
 
+
+cursor.execute("select * from small_data_url")
+
+url = []
+h1 = []
+
+for row in cursor:
+    url.append(row[0])
+    h1.append(row[1])
+
+
+cursor.close()
+mot = "physics"
+url_afficher = []
+h1_afficher = []
+for i, j in zip(url, h1):
+    if mot in j:
+        url_afficher.append(i)
+        h1_afficher.append(j)
     else:
-        print("La requête HTTP a échoué avec le code de statut:", response.status_code)
-except Exception as e:
-    print("Une erreur s'est produite lors de la récupération du contenu de la page:", e)
+        if mot in i:
+            url_afficher.append(i)
+            h1_afficher.append(j)
+
+
+for i, j in zip(url_afficher, h1_afficher):
+    print(i, j)
+    print("\n")

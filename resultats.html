@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Search Page</h1>
+    <form action="/search" method="GET">
+        <input type="text" name="keyword" placeholder="Enter keyword">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+    {% for url, h1 in urls %}
+        <li><a href="{{ url }}">{{ h1 }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
