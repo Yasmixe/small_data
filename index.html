@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+    <link rel="stylesheet" href="../static/style.css">
     <title>Search Page</title>
 </head>
 <body>
-    <h1>Search Page</h1>
-    <form action="/search" method="GET">
-        <input type="text" name="keyword" placeholder="Enter keyword">
-        <button type="submit">Search</button>
-    </form>
+    <div class="container">
+        <h1 class="titre">Small Data</h1>
+        <p>Instantly explore the other side of the web with Small Data.</p>
+        <form action="/search" method="GET" class="search">
+            <input type="text" name="keyword" placeholder="Search...">
+            <button type="submit">
+                <img src="../static/search-13-32.png" alt="">
+            </button>
+        </form>
+    </div>
+    
   
 </body>
 </html>
