@@ -55,7 +55,7 @@ class ExternalLinkCrawler:
 
 
 # Seed URLs
-seed_urls = ["https://en.wikipedia.org/wiki/Mathematics"]
+seed_urls = ["https://en.wikipedia.org/wiki/Philosophy"]
 app = Flask(__name__)
 
 mysql = MySQL()
@@ -94,9 +94,9 @@ for url in external_links:
                     h1_contents.append(h1_content)
                     print(h1_content)
         else:
-            h1_contents.append("maths")
+            h1_contents.append("Philosophy")
     except Exception as e:
-        h1_contents.append("maths ")
+        h1_contents.append("Philosophy ")
 
 
 for link, title in zip(external_links, h1_contents):
